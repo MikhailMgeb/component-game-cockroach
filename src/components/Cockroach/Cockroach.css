@@ -1,0 +1,10 @@
+.Cockroach {
+    display: inline;
+    position: relative;
+    overflow-y: hidden;
+}
+
+.Cockroach-Image {
+    width: 40px;
+    position: absolute;
+}
