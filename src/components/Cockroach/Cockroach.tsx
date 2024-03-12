@@ -1,20 +1,18 @@
 import React from 'react';
-import type { MouseEvent } from 'react';
+import type { FC, MouseEvent } from 'react';
 
 import { cnCockroach } from './Cockroach.classname';
-import imageFirst from '../assets/cockroach-type-1.png';
-import imageSecond from '../assets/cockroach-type-2.png';
-import Third from '../assets/cockroach-type-3.png';
 
 import './Cockroach.css';
 
-const imagesCockroach = [imageFirst, imageSecond, Third];
-const collectionPictures: string[] = [];
-let randomIndex;
+type CockroachCard = {
+    id: string;
+    image: string
+}
 
-for (let i = 0; i < 8; i++) {
-    randomIndex = Math.ceil(Math.random() * 3) - 1;
-    collectionPictures.push(imagesCockroach[randomIndex]);
+type CockroachProps = {
+    collectionCockroaches: CockroachCard[];
+    onKillCockroach: (CockroachId: string | undefined) => void;
 }
 
 function randomPosition(axis: string) {
@@ -25,15 +23,20 @@ function randomPosition(axis: string) {
     return randomNumber;
 }
 
-const Cockroach = () => {
+const Cockroach: FC<CockroachProps> = ({ collectionCockroaches, onKillCockroach }) => {
+
     const handleKillCockroach = (event: MouseEvent<HTMLElement>) => {
         const target = event.target as HTMLElement;
-        console.log(target.dataset.id)
+
+        collectionCockroaches.filter(item => item.id !== target.dataset.id);
+
+        onKillCockroach(target.dataset.id);
     }
+
     return (
         <div className={cnCockroach()} onClick={handleKillCockroach}>
-            {collectionPictures.map((item, index) =>
-                <img src={item} className={cnCockroach('Image')}
+            {collectionCockroaches.map((item, index) =>
+                <img src={item.image} className={cnCockroach('Image')}
                     style={
                         {
                             position: 'absolute',
@@ -42,9 +45,10 @@ const Cockroach = () => {
                             transform: `rotate(${Math.random() * 359}deg)`,
                         }
                     }
-                    alt='cockroach' key={index} data-id={index} />)}
+                    alt='cockroach' key={index} data-id={item.id} />)}
         </div>
     );
 }
 
 export { Cockroach };
+export type { CockroachCard };
