@@ -11,6 +11,7 @@ type StartGameButtonProps = {
 }
 
 const StartGameButton: FC<StartGameButtonProps> = ({ onChangeStatusGame, startGame, isOpened }) => {
+    
     const handleStatusGame = () => {
         onChangeStatusGame();
         startGame();
