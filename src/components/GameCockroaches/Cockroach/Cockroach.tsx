@@ -1,14 +1,11 @@
 import React from 'react';
 import type { FC, MouseEvent } from 'react';
 
-import { cnCockroach } from './Cockroach.classname';
+import { cnGameCockroaches } from '../GameCockroaches.classname';
+import { CockroachCard } from '../GameTyped';
 
 import './Cockroach.css';
 
-type CockroachCard = {
-    id: string;
-    image: string
-}
 
 type CockroachProps = {
     collectionCockroaches: CockroachCard[];
@@ -23,20 +20,19 @@ function randomPosition(axis: string) {
     return randomNumber;
 }
 
-const Cockroach: FC<CockroachProps> = ({ collectionCockroaches, onKillCockroach }) => {
+const Cockroaches: FC<CockroachProps> = ({ collectionCockroaches, onKillCockroach }) => {
 
-    const handleKillCockroach = (event: MouseEvent<HTMLElement>) => {
-        const target = event.target as HTMLElement;
+    const handleKillCockroach = (id: string) => {
 
-        collectionCockroaches.filter(item => item.id !== target.dataset.id);
+        collectionCockroaches.filter(item => item.id !== id);
 
-        onKillCockroach(target.dataset.id);
+        onKillCockroach(id);
     }
 
     return (
-        <div className={cnCockroach()} onClick={handleKillCockroach}>
-            {collectionCockroaches.map((item, index) =>
-                <img src={item.image} className={cnCockroach('Image')}
+        <div className={cnGameCockroaches('Cockroach')}>
+            {collectionCockroaches.map((item) =>
+                <img src={item.image} className={cnGameCockroaches('Image')}
                     style={
                         {
                             position: 'absolute',
@@ -45,10 +41,9 @@ const Cockroach: FC<CockroachProps> = ({ collectionCockroaches, onKillCockroach 
                             transform: `rotate(${Math.random() * 359}deg)`,
                         }
                     }
-                    alt='cockroach' key={index} data-id={item.id} />)}
+                    alt='cockroach' key={item.id} onClick={() => { handleKillCockroach(item.id) }} />)}
         </div>
     );
 }
 
-export { Cockroach };
-export type { CockroachCard };
+export { Cockroaches };
