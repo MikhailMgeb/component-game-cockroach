@@ -13,7 +13,6 @@ import { CockroachCard, PlayersStatistics } from './GameTyped';
 
 import './GameCockroaches.css';
 
-
 const createCollectionCockroach = () => {
     const imagesCockroach = [imageFirst, imageSecond, Third];
     const collectionCockroaches: CockroachCard[] = [];
@@ -32,13 +31,26 @@ const createCollectionCockroach = () => {
 const GameCockroaches = () => {
     const [cockroaches, setCockroaches] = useState<CockroachCard[]>([]);
     const [playersStatistics, getPlayersStatistics] = useState<PlayersStatistics[]>([]);
+    const [timer, setTimer] = useState<null | number>(null);
 
     const handleGameStarted = () => {
         setCockroaches(createCollectionCockroach());
+
+        setTimer(Date.now())
+        getPlayersStatistics([...playersStatistics, { userName: name(), id: uid() }])
     }
 
     const killCockroach = (CockroachId: string | undefined) => {
         setCockroaches(prev => prev.filter((item) => (item.id !== CockroachId)));
+    }
+
+    if (cockroaches.length === 0) {
+        if (timer !== null) {
+            const currentTime = Date.now();
+            const elapsedTime = (currentTime - timer) / 1000;
+            getPlayersStatistics([...playersStatistics, { time: elapsedTime }]);
+            setTimer(null);
+        }
     }
 
     return (
@@ -47,7 +59,16 @@ const GameCockroaches = () => {
                 <StartGameButton onChangeStatusGame={handleGameStarted} /> :
                 <Cockroaches collectionCockroaches={cockroaches} onKillCockroach={killCockroach} />
             }
+            <div>
+                <h2>Leaderboard</h2>
+                {playersStatistics.map((player, index) => (
+                    <div key={index}>
+                        {player.userName} <em>{player.time}</em>
+                    </div>
+                ))}
+            </div>
         </div>
+
     );
 }
 

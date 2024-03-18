@@ -1,5 +1,5 @@
 import React from 'react';
-import type { FC, MouseEvent } from 'react';
+import type { FC } from 'react';
 
 import { cnGameCockroaches } from '../GameCockroaches.classname';
 import { CockroachCard } from '../GameTyped';

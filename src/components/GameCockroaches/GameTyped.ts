@@ -4,6 +4,8 @@ export type CockroachCard = {
 }
 
 export type PlayersStatistics = {
-    name: string;
-    time: string;
+    id?: string;
+    userName?: string;
+    time?: string | number | null;
 }
+
