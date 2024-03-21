@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { uid } from 'uid';
 import { name } from 'react-lorem-ipsum';
 
@@ -7,11 +7,16 @@ import { StartGameButton } from './StartGameButton/StartGameButton';
 import imageFirst from '../../components/assets/cockroach-type-1.png';
 import imageSecond from '../../components/assets/cockroach-type-2.png';
 import Third from '../../components/assets/cockroach-type-3.png';
-
+import { CockroachCard } from './GameTyped';
+import { PlayersStatistics } from '../../App';
 import { cnGameCockroaches } from './GameCockroaches.classname';
-import { CockroachCard, PlayersStatistics } from './GameTyped';
 
 import './GameCockroaches.css';
+
+
+type GameCockroachesProps = {
+    onSetPlayersStatistics: (player: PlayersStatistics) => void;
+}
 
 const createCollectionCockroach = () => {
     const imagesCockroach = [imageFirst, imageSecond, Third];
@@ -28,28 +33,28 @@ const createCollectionCockroach = () => {
     return collectionCockroaches;
 }
 
-const GameCockroaches = () => {
+const GameCockroaches: FC<GameCockroachesProps> = ({ onSetPlayersStatistics }) => {
     const [cockroaches, setCockroaches] = useState<CockroachCard[]>([]);
-    const [playersStatistics, getPlayersStatistics] = useState<PlayersStatistics[]>([]);
+
     const [timer, setTimer] = useState<null | number>(null);
 
     const handleGameStarted = () => {
         setCockroaches(createCollectionCockroach());
 
-        setTimer(Date.now())
-        getPlayersStatistics([...playersStatistics, { userName: name(), id: uid() }])
+        setTimer(Date.now());
     }
 
-    const killCockroach = (CockroachId: string | undefined) => {
+    const handleKillCockroach = (CockroachId: string | undefined) => {
         setCockroaches(prev => prev.filter((item) => (item.id !== CockroachId)));
-    }
 
-    if (cockroaches.length === 0) {
-        if (timer !== null) {
-            const currentTime = Date.now();
-            const elapsedTime = (currentTime - timer) / 1000;
-            getPlayersStatistics([...playersStatistics, { time: elapsedTime }]);
-            setTimer(null);
+        if (cockroaches.length - 1 === 0) {
+            if (timer !== null) {
+                const currentTime = Date.now();
+                const elapsedTime = (currentTime - timer) / 1000;
+                
+                onSetPlayersStatistics({ userName: name(), id: uid(), time: elapsedTime });
+                setTimer(null);
+            }
         }
     }
 
@@ -57,16 +62,8 @@ const GameCockroaches = () => {
         <div className={cnGameCockroaches()}>
             {cockroaches.length === 0 ?
                 <StartGameButton onChangeStatusGame={handleGameStarted} /> :
-                <Cockroaches collectionCockroaches={cockroaches} onKillCockroach={killCockroach} />
+                <Cockroaches collectionCockroaches={cockroaches} onKillCockroach={handleKillCockroach} />
             }
-            <div>
-                <h2>Leaderboard</h2>
-                {playersStatistics.map((player, index) => (
-                    <div key={index}>
-                        {player.userName} <em>{player.time}</em>
-                    </div>
-                ))}
-            </div>
         </div>
 
     );
