@@ -6,7 +6,6 @@ import { CockroachCard } from '../GameTyped';
 
 import './Cockroach.css';
 
-
 type CockroachProps = {
     collectionCockroaches: CockroachCard[];
     onKillCockroach: (CockroachId: string | undefined) => void;

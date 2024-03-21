@@ -4,7 +4,6 @@ import { cnGameCockroaches } from '../GameCockroaches.classname';
 
 import './StartGameButton.css';
 
-
 type StartGameButtonProps = {
     onChangeStatusGame: () => void;
 }

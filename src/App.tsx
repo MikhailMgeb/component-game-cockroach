@@ -10,7 +10,6 @@ export type PlayersStatistics = {
   time?: string | number | null;
 }
 
-
 const App = () => {
   const [playersStatistics, setPlayersStatistics] = useState<PlayersStatistics[]>([]);
 
