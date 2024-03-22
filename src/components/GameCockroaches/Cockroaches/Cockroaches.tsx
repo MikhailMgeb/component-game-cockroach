@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import { cnGameCockroaches } from '../GameCockroaches.classname';
 import { CockroachCard } from '../GameTyped';
 
-import './Cockroach.css';
+import './Cockroaches.css';
 
 type CockroachProps = {
     collectionCockroaches: CockroachCard[];
@@ -31,7 +31,7 @@ const Cockroaches: FC<CockroachProps> = ({ collectionCockroaches, onKillCockroac
     return (
         <div className={cnGameCockroaches('Cockroach')}>
             {collectionCockroaches.map((item) =>
-                <img src={item.image} className={cnGameCockroaches('Image')}
+                <img
                     style={
                         {
                             position: 'absolute',
@@ -40,7 +40,12 @@ const Cockroaches: FC<CockroachProps> = ({ collectionCockroaches, onKillCockroac
                             transform: `rotate(${Math.random() * 359}deg)`,
                         }
                     }
-                    alt='cockroach' key={item.id} onClick={() => { handleKillCockroach(item.id) }} />)}
+                    src={item.image}
+                    className={cnGameCockroaches('Image')}
+                    alt='cockroach'
+                    key={item.id}
+                    onClick={() => { handleKillCockroach(item.id) }}
+                />)}
         </div>
     );
 }

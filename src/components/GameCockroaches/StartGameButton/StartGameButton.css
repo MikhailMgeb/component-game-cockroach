@@ -1,4 +1,4 @@
-.GameCockroaches-input {
+.GameCockroaches-Input {
     position: absolute;
     bottom: -300px;
     right: 42%;
@@ -6,19 +6,16 @@
     padding: 20px 30px;
     font-size: 30px;
     color: white;
-}
-
-.GameCockroaches-input_style {
     border-radius: 10px;
     transition: .2s linear;
     background: #0B63F6;
 }
 
-.GameCockroaches-input_style:hover {
+.GameCockroaches-Input_style:hover {
     box-shadow: 2px 2px white, 4px 4px #FC63B5;
 }
 
-.GameCockroaches-input_style:active {
+.GameCockroaches-Input_style:active {
     background: #003797;
     box-shadow: 2px 2px white, 4px 4px rgb(234, 255, 47);
 }

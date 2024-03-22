@@ -15,11 +15,9 @@ const StartGameButton: FC<StartGameButtonProps> = ({ onChangeStatusGame }) => {
     }
 
     return (
-        <>
-            <button className={cnGameCockroaches('input', { style: true })} onClick={handleStatusGame}>
-                Начать игру
-            </button>
-        </>
+        <button className={cnGameCockroaches('Input')} onClick={handleStatusGame}>
+            Начать игру
+        </button>
     );
 }
 
