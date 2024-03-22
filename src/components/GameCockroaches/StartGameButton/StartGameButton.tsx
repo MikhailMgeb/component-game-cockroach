@@ -9,7 +9,6 @@ type StartGameButtonProps = {
 }
 
 const StartGameButton: FC<StartGameButtonProps> = ({ onChangeStatusGame }) => {
-
     const handleStatusGame = () => {
         onChangeStatusGame();
     }

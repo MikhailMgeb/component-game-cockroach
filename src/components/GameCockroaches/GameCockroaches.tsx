@@ -11,8 +11,6 @@ import { CockroachCard } from './GameTyped';
 import { PlayersStatistics } from '../../App';
 import { cnGameCockroaches } from './GameCockroaches.classname';
 
-import './GameCockroaches.css';
-
 type GameCockroachesProps = {
     onSetPlayersStatistics: (player: PlayersStatistics) => void;
 }
@@ -34,7 +32,6 @@ const createCollectionCockroach = () => {
 
 const GameCockroaches: FC<GameCockroachesProps> = ({ onSetPlayersStatistics }) => {
     const [cockroaches, setCockroaches] = useState<CockroachCard[]>([]);
-
     const [timer, setTimer] = useState<null | number>(null);
 
     const handleGameStarted = () => {
